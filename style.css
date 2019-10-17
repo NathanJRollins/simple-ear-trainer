@@ -2,6 +2,7 @@ html {
 	background-color: black;
 	color: white;
 	text-align: center;
+	overflow: hidden;
 }
 
 #display-element {
