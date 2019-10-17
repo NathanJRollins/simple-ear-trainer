@@ -1,0 +1,20 @@
+<!DOCTYPE HTML>
+<html class="unselectable">
+	<head>
+		<meta charset="utf-8"/>
+		<title>Simple Ear Trainer</title>
+		<meta name='viewport' content='width=device-width, initialscale=1.0'>
+		<meta name='description' content='Simple ear training'>
+		<!-- <link rel="icon" href="[FAVICON].png" type="image/x-icon"> -->
+		<link rel="stylesheet" type="text/css" href="style.css">
+	</head>
+	<body>
+		<input type="radio" name="scale" id="scale-cmajor" onclick="scaleChanged('cmajor')"><label for="scale-cmajor">C Major Scale</label>
+		<input type="radio" name="scale" id="scale-chromatic" onclick="scaleChanged('chromatic')"><label for="scale-chromatic">Chromatic Scale</label>
+
+		<audio id="audio-element"></audio>
+		<div id="display-element">👆</div>
+
+		<script src='script.js'></script>
+	</body>
+</html>
