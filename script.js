@@ -1,20 +1,17 @@
 // TODO:
 //   * Add toggles for which octaves to include
 //   * Display piano keys
-//   * Cache notes (if not browser's job?)
 //   * Add toggles for different instruments
 
 // JS strict mode for habit hygiene (MUST be first statement in file)
 'use strict';
 
-var audioElement = document.getElementById('audio-element');
-audioElement.volume = 0.75;
-audioElement.addEventListener('ended', handleNoteEnded);
 // notes must have corresponding files
 var possibleNotesCMajorScale = ["C", "D", "E", "F", "G", "A", "B", ];
 var possibleNotesChromaticScale = ["C", "D", "Db", "E", "Eb", "F", "G", "A", "Ab", "B", "Bb", ];
-var possibleNotes = possibleNotesCMajorScale;
-var state = 0; // functional programming is 4 turds
+var possibleNotes = possibleNotesCMajorScale; // default
+var currentAudioElement;
+var state = 'ready-for-new-note'; // functional programming is 4 turds
 
 // initial click is necessary to bypass anti-autoplay protections
 document.onclick = handleClick;
@@ -23,15 +20,14 @@ document.onclick = handleClick;
 function handleClick() {
 	switch(state) {
 		// program init or end of loop - kick it off (/again)
-		case 0:
+		case 'ready-for-new-note':
 			playNewNote();
 			break;
 		// note has begun playing
-		case 1:
-			// fall thru
-		// note playing has ended
-		case 2:
-			displayNoteName();
+		case 'ready-for-note-name-display':
+			// display note name & advance program state
+			document.getElementById("display-element").innerText = getNoteNameFromPath(currentAudioElement.src);
+			state = 'ready-for-new-note';
 			break;
 		default:
 			// idk what happened, start the process over
@@ -40,48 +36,55 @@ function handleClick() {
 	} 
 }
 
-// play a new note at random
+// Play a new note at random
 function playNewNote() {
-	clearNoteNameDisplay();
-	rollNewNote();
-	audioElement.load();
-	audioElement.play();
-	state = 1; // set state to playing
-}
-
-function handleNoteEnded(event) {
-	state = 2; // set state to ended
-}
-
-function displayNoteName() {
-	document.getElementById("display-element").innerText = getNoteNameFromPath(audioElement.src);
-	state = 0; // set state to begin/end
-}
-
-function clearNoteNameDisplay() {
-	// document.getElementById("display-element").innerText = "🎹";
-	// document.getElementById("display-element").innerText = "🎶";
+	// clear note name display
 	document.getElementById("display-element").innerText = "🎵";
+	// pick a new note at random
+	var newNote = getNewRandomNoteName();
+	// get its corresponding audio element
+	currentAudioElement = getAudioElementFor(newNote);
+	// play it from the beginning
+	currentAudioElement.currentTime = 0.0;
+	currentAudioElement.play();
+	// advance program state
+	state = 'ready-for-note-name-display';
 }
 
-// get the note's name cleanly, without path or extension
+// Get the note's name cleanly, without path or extension
 function getNoteNameFromPath(path) {
 	var name = path.slice(path.lastIndexOf("/")+1, path.lastIndexOf("."));
 	name = name;
 	return name;
 }
 
-// set a new (random) note up to be played
-function rollNewNote() {
+// Set a new (random) note up to be played
+function getNewRandomNoteName() {
+	// determine which note was played last so we don't repeat it
+	var lastNote = (currentAudioElement === undefined) ? 'none' : getNoteNameFromPath(currentAudioElement.src) ;
+
 	// get new note at random from possibleNotes array (no dupes)
 	var newNote;
 	do {
 		newNote = possibleNotes[Math.floor(Math.random()*possibleNotes.length)];
 	}
-	while (newNote == getNoteNameFromPath(audioElement.src));
+	while (newNote == lastNote); // no dupes
+	return newNote;
+}
 
-	// set it up
-	audioElement.setAttribute('src', `audio/note/piano/octave-4/${newNote}.mp3`);
+// Return an audio element for the given note, whether one already exists or not
+function getAudioElementFor(note) {
+	// get the element if it already exists
+	var thisAudioElement = document.getElementById('audioElementForNote-'+note);
+	// if the element does not already exist, create it, attach it, and return it
+	if (thisAudioElement === null) {
+		// create and initialize new audio element for this note 
+		thisAudioElement = document.createElement('audio');
+		thisAudioElement.setAttribute('id', 'audioElementForNote-'+note);
+		thisAudioElement.setAttribute('src', `audio/note/piano/octave-4/${note}.mp3`);
+		thisAudioElement.load();
+	}
+	return thisAudioElement;
 }
 
 function scaleChanged(newScale) {
