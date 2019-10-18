@@ -18,6 +18,11 @@ document.onclick = handleClick;
 
 // Handle click by advancing the process as expected for each state
 function handleClick() {
+	// Ensure the functionally-active scale is visually selected (useful for first-run)
+	document.getElementById('scale-cmajor').checked = (possibleNotes == possibleNotesCMajorScale);
+	document.getElementById('scale-chromatic').checked = (possibleNotes == possibleNotesChromaticScale);
+
+	// React to click depending on program state
 	switch(state) {
 		// program init or end of loop - kick it off (/again)
 		case 'ready-for-new-note':
