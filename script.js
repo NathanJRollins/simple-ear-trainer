@@ -9,12 +9,12 @@
 
 var audioElement = document.getElementById('audio-element');
 audioElement.volume = 0.75;
-audioElement.addEventListener('ended', handleNoteEnded);
+
 // notes must have corresponding files
 var possibleNotesCMajorScale = ["C", "D", "E", "F", "G", "A", "B", ];
 var possibleNotesChromaticScale = ["C", "D", "Db", "E", "Eb", "F", "G", "A", "Ab", "B", "Bb", ];
 var possibleNotes = possibleNotesCMajorScale;
-var state = 0; // functional programming is 4 turds
+var state = 'ready-for-new-note'; // functional programming is 4 turds
 
 // initial click is necessary to bypass anti-autoplay protections
 document.onclick = handleClick;
@@ -23,15 +23,14 @@ document.onclick = handleClick;
 function handleClick() {
 	switch(state) {
 		// program init or end of loop - kick it off (/again)
-		case 0:
+		case 'ready-for-new-note':
 			playNewNote();
 			break;
 		// note has begun playing
-		case 1:
-			// fall thru
-		// note playing has ended
-		case 2:
-			displayNoteName();
+		case 'ready-for-note-name-display':
+			// display note name & advance program state
+			document.getElementById("display-element").innerText = getNoteNameFromPath(audioElement.src);
+			state = 'ready-for-new-note';
 			break;
 		default:
 			// idk what happened, start the process over
@@ -42,26 +41,15 @@ function handleClick() {
 
 // play a new note at random
 function playNewNote() {
-	clearNoteNameDisplay();
+	// clear note name display
+	document.getElementById("display-element").innerText = "🎵";
+	// pick a new note at random
 	rollNewNote();
+	// play it
 	audioElement.load();
 	audioElement.play();
-	state = 1; // set state to playing
-}
-
-function handleNoteEnded(event) {
-	state = 2; // set state to ended
-}
-
-function displayNoteName() {
-	document.getElementById("display-element").innerText = getNoteNameFromPath(audioElement.src);
-	state = 0; // set state to begin/end
-}
-
-function clearNoteNameDisplay() {
-	// document.getElementById("display-element").innerText = "🎹";
-	// document.getElementById("display-element").innerText = "🎶";
-	document.getElementById("display-element").innerText = "🎵";
+	// advance program state
+	state = 'ready-for-note-name-display';
 }
 
 // get the note's name cleanly, without path or extension
