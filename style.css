@@ -17,6 +17,13 @@ html {
 	color: white;
 }
 
+#octaves {
+	top: 98%;
+	position: absolute;
+	transform: translate(0%,-100%);
+	width: 100%;
+}
+
 .unselectable {
 	-webkit-touch-callout: none;
 	-webkit-user-select: none;
