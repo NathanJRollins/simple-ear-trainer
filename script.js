@@ -147,3 +147,18 @@ function setFavicon(favicon) {
 	docHead.appendChild(newLink);
 }
 setFavicon('iVBORw0KGgoAAAANSUhEUgAAAQAAAAEACAIAAADTED8xAAACuUlEQVR42u3XsY2DMBSA4dwpE6D0FBF0TJPKJUtQO5NQUtGyQgZITeFJchsQpCBHcN/XxhLvWfyKOJ0AAAAAAAAAOJaf5Z/bti3L8sNnpJT6vv/KepvMb7v9bvfp/DHG18dijN/qe5P5bbff7d7O/+tPkP9MAAgABAACAAGAAEAAIAAQAAgABAACAAGAAEAAIAAQAAgABAACAAGAAEAAIAAQAAgABAACAAGAAEAAIAAQAAgABAACAAGAAEAAIAAQAAgABAACAAGAAEAAIAAQAAgABAACQAAgABAACAAEAAIAAYAAQAAgABAACAAEAAIAAYAAQAAgABAACAAEAAIAAYAAQAAgABAACAAEAAIAAYAAQAAgABAACAAEAAIAAYAAQAAgABAACAAEAAIAAYAAQAAgABAACAABgABAACAAEAAIAAQAAgABgABAACAAEAAIAAQAAgABgABAACAAEAAIAAQAAgABgABAACAAEAAIAI4UQAjher0e9QZDCEVR5H/u5XIJIRz1VquqyrPdOcMz6rqepmkYhjWHU0p93y8cuN1uTdOsfzszbPd4PLbarm3bsixXrlbXdYa81x9+Pp/jOO5ou/dijK+8YozLI3Vd99qtt9vlv/ANdV23u9fJNwC+AUAAIAAQAAgABAACAAGAAEAAIAAQAAgABAACAAGAAEAAIAAQAAgABAACAAGAAEAAIAAQAAgABAACAAGAAEAAIAAQAAgABAACAAGAAEAAIAAQAAgABAACAAGAAEAAIAAEAAIAAYAAQAAgABAACAAEAAIAAYAAQAAgABAACAAEAAIAAYAAQAAgABAACAAEAAIAAYAAQAAgABAACAAEAAIAAYAAQAAgABAACAAEAAIAAcBq5+WfU0r3+z3nQCml5QPzPGceKed2+S98Q/M87+51AgAAAAAAAOBo/gD2jwUZvjNd0wAAAABJRU5ErkJggg==');
+
+// Update UI given program state (a soft browser refresh may retain UI but not state)
+function syncUIInputsToProgramState() {
+	document.getElementById("octave-1").checked = possibleOctaves.includes('1');
+	document.getElementById("octave-2").checked = possibleOctaves.includes('2');
+	document.getElementById("octave-3").checked = possibleOctaves.includes('3');
+	document.getElementById("octave-4").checked = possibleOctaves.includes('4');
+	document.getElementById("octave-5").checked = possibleOctaves.includes('5');
+	document.getElementById("octave-6").checked = possibleOctaves.includes('6');
+	document.getElementById("octave-7").checked = possibleOctaves.includes('7');
+
+	document.getElementById("scale-cmajor").checked = (possibleNotes == possibleNotesCMajorScale);
+	document.getElementById("scale-chromatic").checked = (possibleNotes == possibleNotesChromaticScale);
+}
+syncUIInputsToProgramState();
