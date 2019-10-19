@@ -9,9 +9,21 @@
 		<link rel="stylesheet" type="text/css" href="style.css">
 	</head>
 	<body>
-		<input type="radio" name="scale" id="scale-cmajor" onclick="scaleChanged('cmajor')"><label for="scale-cmajor">C Major Scale</label>
-		<input type="radio" name="scale" id="scale-chromatic" onclick="scaleChanged('chromatic')"><label for="scale-chromatic">Chromatic Scale</label>
-
+		<!-- scale selectors -->
+		<input type="radio" name="scale" id="scale-cmajor" onclick="scaleChanged('cmajor')" checked><label for="scale-cmajor">C Major Scale</label>&nbsp;
+		<input type="radio" name="scale" id="scale-chromatic" onclick="scaleChanged('chromatic')"><label for="scale-chromatic">Chromatic Scale</label>&nbsp;
+		<br>
+		
+		<!-- octave selectors -->
+		Include Octaves:&nbsp;
+		<input type="checkbox" id="octave-1"><label for="octave-1">1</label>&nbsp;
+		<input type="checkbox" id="octave-2"><label for="octave-2">2</label>&nbsp;
+		<input type="checkbox" id="octave-3"><label for="octave-3">3</label>&nbsp;
+		<input type="checkbox" id="octave-4" checked><label for="octave-4">4</label>&nbsp;
+		<input type="checkbox" id="octave-5"><label for="octave-5">5</label>&nbsp;
+		<input type="checkbox" id="octave-6"><label for="octave-6">6</label>&nbsp;
+		<input type="checkbox" id="octave-7"><label for="octave-7">7</label>&nbsp;
+		
 		<audio id="audio-element"></audio>
 		<div id="display-element">👆</div>
 
