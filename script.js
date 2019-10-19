@@ -22,7 +22,7 @@ document.onclick = handleClick;
 function handleClick() {
 	// if there are no active octaves, tell the user to select some and reset the program state
 	if (possibleOctaves.length == 0) {
-		document.getElementById("display-element").innerText = "👆";
+		document.getElementById("display-element").innerText = "↕";
 		state = 'ready-for-new-note';
 		return;
 	}
@@ -135,3 +135,15 @@ document.getElementById("octave-4").addEventListener("click", updateSelectedOcta
 document.getElementById("octave-5").addEventListener("click", updateSelectedOctave);
 document.getElementById("octave-6").addEventListener("click", updateSelectedOctave);
 document.getElementById("octave-7").addEventListener("click", updateSelectedOctave);
+
+// Set the favicon 
+//   (this file will be cached, so doing it here to avoid reloads and additional requests)
+//   Requires a base 64 PNG image as parameter
+function setFavicon(favicon) {
+	var docHead = document.getElementsByTagName('head')[0];
+	var newLink = document.createElement('link');
+	newLink.rel = 'shortcut icon';
+	newLink.href = 'data:image/png;base64,' + favicon;
+	docHead.appendChild(newLink);
+}
+setFavicon('iVBORw0KGgoAAAANSUhEUgAAAQAAAAEACAIAAADTED8xAAACuUlEQVR42u3XsY2DMBSA4dwpE6D0FBF0TJPKJUtQO5NQUtGyQgZITeFJchsQpCBHcN/XxhLvWfyKOJ0AAAAAAAAAOJaf5Z/bti3L8sNnpJT6vv/KepvMb7v9bvfp/DHG18dijN/qe5P5bbff7d7O/+tPkP9MAAgABAACAAGAAEAAIAAQAAgABAACAAGAAEAAIAAQAAgABAACAAGAAEAAIAAQAAgABAACAAGAAEAAIAAQAAgABAACAAGAAEAAIAAQAAgABAACAAGAAEAAIAAQAAgABAACQAAgABAACAAEAAIAAYAAQAAgABAACAAEAAIAAYAAQAAgABAACAAEAAIAAYAAQAAgABAACAAEAAIAAYAAQAAgABAACAAEAAIAAYAAQAAgABAACAAEAAIAAYAAQAAgABAACAABgABAACAAEAAIAAQAAgABgABAACAAEAAIAAQAAgABgABAACAAEAAIAAQAAgABgABAACAAEAAIAI4UQAjher0e9QZDCEVR5H/u5XIJIRz1VquqyrPdOcMz6rqepmkYhjWHU0p93y8cuN1uTdOsfzszbPd4PLbarm3bsixXrlbXdYa81x9+Pp/jOO5ou/dijK+8YozLI3Vd99qtt9vlv/ANdV23u9fJNwC+AUAAIAAQAAgABAACAAGAAEAAIAAQAAgABAACAAGAAEAAIAAQAAgABAACAAGAAEAAIAAQAAgABAACAAGAAEAAIAAQAAgABAACAAGAAEAAIAAQAAgABAACAAGAAEAAIAAEAAIAAYAAQAAgABAACAAEAAIAAYAAQAAgABAACAAEAAIAAYAAQAAgABAACAAEAAIAAYAAQAAgABAACAAEAAIAAYAAQAAgABAACAAEAAIAAcBq5+WfU0r3+z3nQCml5QPzPGceKed2+S98Q/M87+51AgAAAAAAAOBo/gD2jwUZvjNd0wAAAABJRU5ErkJggg==');
