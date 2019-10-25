@@ -90,12 +90,12 @@ function getOctaveNumberFromPath(path) {
 // Return an audio element for the given note, whether one already exists or not
 function getAudioElementFor(octave, note) {
 	// get the element if it already exists
-	var thisAudioElement = document.getElementById('audioElementForNote-'+note);
+	var thisAudioElement = document.getElementById(`audioElementForNote-${note}-${octave}.mp3`);
 	// if the element does not already exist, create it, attach it, and return it
 	if (thisAudioElement === null) {
 		// create and initialize new audio element for this note 
 		thisAudioElement = document.createElement('audio');
-		thisAudioElement.setAttribute('id', 'audioElementForNote-'+note);
+		thisAudioElement.setAttribute('id', `audioElementForNote-${note}-${octave}.mp3`);
 		thisAudioElement.setAttribute('src', `audio/note/piano/${octave}-${note}.mp3`);
 		thisAudioElement.load();
 	}
