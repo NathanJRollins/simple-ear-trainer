@@ -1,6 +1,6 @@
 http://theremin.music.uiowa.edu/MISpiano.html
 modified from the above to a uniform:
-	5-second duration
+	5-second duration (all but 5b, which is shorter due to source error)
 	no dead air at beginning - begin relevant audio immediately
 	fade out - no abrupt endings
 do note that files need to be named according to a rigid scheme as expected by the JS script
